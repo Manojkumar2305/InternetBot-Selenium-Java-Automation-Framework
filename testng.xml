@@ -1,0 +1,42 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Internet Hackathon Suite" parallel="tests" thread-count="2">
+    <listeners>
+        <listener class-name="com.srm.listeners.TestListener"/>
+    </listeners>
+
+    <test name="Authentication Tests">
+        <classes>
+            <class name="com.srm.tests.AuthenticationTests"/>
+        </classes>
+    </test>
+
+    <test name="Alert Tests">
+        <classes>
+            <class name="com.srm.tests.AlertTests"/>
+        </classes>
+    </test>
+
+    <test name="Checkbox and Dropdown Tests">
+        <classes>
+            <class name="com.srm.tests.CheckboxDropdownTests"/>
+        </classes>
+    </test>
+
+    <test name="Upload Tests">
+        <classes>
+            <class name="com.srm.tests.FileUploadTests"/>
+        </classes>
+    </test>
+
+    <test name="Dynamic Tests">
+        <classes>
+            <class name="com.srm.tests.DynamicLoadingTests"/>
+        </classes>
+    </test>
+
+    <test name="Broken Elements Tests">
+        <classes>
+            <class name="com.srm.tests.BrokenElementsTests"/>
+        </classes>
+    </test>
+</suite>

@@ -1,164 +1,187 @@
-# InternetBot-Selenium-Java-Automation-Framework
-InternetBot is a robust Selenium-Java automation framework built to test advanced web interaction scenarios on the The Internet practice application. The framework follows industry-standard design patterns like Page Object Model (POM) and integrates TestNG, WebDriverManager, and ExtentReports for scalable and maintainable test automation.
+#  InternetBot – Selenium Automation Framework
 
-It automates key web functionalities including authentication, alerts handling, file operations, dynamic content, and UI element interactions. The framework is designed to be reusable, modular, and easy to extend for additional test cases.
+InternetBot is a robust Selenium-based automation testing framework developed using Java and TestNG. The framework is designed to automate UI testing for real-world web applications by following industry best practices such as the Page Object Model (POM), data-driven testing, and modular architecture.
 
-Key highlights:
-
-* Clean separation of Page classes, Test classes, and utilities
-* Fully configurable using `config.properties`
-* Screenshot capture on failure using TestNG listeners
-* HTML reporting with ExtentReports
-* Explicit wait strategy using WebDriverWait (no Thread.sleep)
-* Data-driven testing using TestNG DataProvider
+The framework targets the practice application: https://the-internet.herokuapp.com
 
 ---
 
-## 📖 README.md
+##  Features
 
-# 🚀 InternetBot – Selenium Automation Framework
-
-## 📌 Overview
-
-InternetBot is a Selenium-Java based automation framework developed to test various functionalities of the demo site:
-
-👉 https://the-internet.herokuapp.com
-
-It is built using:
-
-* Selenium WebDriver
-* TestNG
-* WebDriverManager
-* ExtentReports
-
-and follows **Page Object Model (POM)** for clean and maintainable code.
+-  Authentication Testing (Valid & Invalid Login)
+-  JavaScript Alerts Handling (Alert, Confirm, Prompt)
+-  File Upload Automation (Supported & Unsupported files)
+-  UI Element Interaction (Checkboxes, Dropdowns, Hover)
+-  Dynamic Content Handling (Dynamic loading & disappearing elements)
+-  Broken Elements Detection
+-  Screenshot Capture on Test Failure
+-  ExtentReports HTML Reporting
+-  Configurable via `config.properties`
+-  Data-driven testing using TestNG DataProvider
 
 ---
 
-## 🧱 Framework Architecture
-
+##  Framework Architecture
 ```
 InternetBot/
-│── src/
-│   ├── base/           → Base classes (driver setup)
-│   ├── pages/          → Page Object classes
-│   ├── tests/          → Test classes
-│   ├── utils/          → Utilities (ConfigReader, Waits, etc.)
 │
-│── resources/
-│   ├── config.properties
-│   ├── testng.xml
+├── src/main/java/com/srm/
+│ ├── core/ # Config & Driver management
+│ │ ├── ConfigReader.java
+│ │ └── DriverFactory.java
+│ │
+│ ├── pages/ # Page classes (POM)
+│ │ ├── BasePage.java
+│ │ ├── LoginPage.java
+│ │ ├── AlertPage.java
+│ │ ├── CheckboxPage.java
+│ │ ├── DropdownPage.java
+│ │ ├── UploadPage.java
+│ │ ├── DynamicPage.java
+│ │ ├── DynamicContentPage.java
+│ │ ├── BrokenImagesPage.java
+│ │ ├── HoverPage.java
+│ │ ├── SecureAreaPage.java
+│ │ └── DisappearingElementsPage.java
+│ │
+│ └── utils/
+│ └── ProcessBuilderFileUpload.java
 │
-│── screenshots/        → Failure screenshots
-│── reports/            → ExtentReports output
+├── src/test/java/com/srm/
+│ ├── tests/ # Test classes
+│ │ ├── BaseTest.java
+│ │ ├── AuthenticationTests.java
+│ │ ├── AlertTests.java
+│ │ ├── CheckboxDropdownTests.java
+│ │ ├── FileUploadTests.java
+│ │ ├── DynamicLoadingTests.java
+│ │ └── BrokenElementsTests.java
+│ │
+│ ├── listeners/ # TestNG Listener
+│ │ └── TestListener.java
+│ │
+│ └── utils/
+│ ├── ExtentManager.java
+│ └── ScreenshotUtils.java
+│
+├── src/test/resources/
+│ ├── config.properties # Configuration file
+│ └── test-data/ # Sample test files
+│
+├── reports/ # ExtentReports output
+├── screenshots/ # Failure screenshots
+└── pom.xml # Maven dependencies
 ```
 
 ---
 
-## ⚙️ Features
+##  Tech Stack
 
-✔ Page Object Model (POM) design
-✔ TestNG framework with annotations & DataProviders
-✔ WebDriverManager (no manual driver setup)
-✔ Explicit waits (WebDriverWait)
-✔ Screenshot capture on failure
-✔ ExtentReports HTML reporting
-✔ Config-driven execution
-✔ Modular & reusable code
+- Java
+- Selenium WebDriver
+- TestNG
+- Maven
+- WebDriverManager
+- ExtentReports
 
 ---
 
-## 🧪 Test Coverage
+##  Configuration
 
-### 1. Authentication
+All configurations are handled via:
 
-* Valid & invalid login
-* Logout verification
+src/test/resources/config.properties
 
-### 2. JavaScript Alerts
+Example:
 
-* Alert, Confirm, Prompt handling
+-browser=chrome
+-baseUrl=https://the-internet.herokuapp.com
+-timeout=10
 
-### 3. UI Elements
-
-* Checkboxes
-* Dropdowns
-* Hover interactions
-
-### 4. File Handling
-
-* File upload
-* Validation of uploaded file
-
-### 5. Dynamic Content
-
-* Dynamic loading
-* Disappearing elements
 
 ---
 
-## ⚠️ Known Issues
+##  Test Coverage
 
-❗ Some modules are **not fully working** due to:
+### Authentication
+- Valid login
+- Invalid login
+- Logout verification
 
-* Dynamic element instability on the test site
-* Timing issues in certain scenarios
-* Partial implementation of advanced cases
+### Alerts
+- Alert accept
+- Confirm dismiss
+- Prompt input
 
-These modules may fail intermittently and are under improvement.
+### UI Elements
+- Checkbox selection
+- Dropdown selection
+
+### File Upload
+- Upload valid file
+- Validate uploaded filename
+
+### Dynamic Content
+- Wait for dynamic elements
+- Handle disappearing elements
+
+### Broken Elements
+- Detect broken images/elements
 
 ---
 
-## ▶️ How to Run
+##  Screenshot on Failure
+
+- Captured automatically using TestNG Listener
+- Stored in `/screenshots/`
+- Timestamp added to filename
+
+---
+
+##  Reporting
+
+- ExtentReports generates HTML report after execution
+- Includes pass/fail status and screenshots
+
+Report location:
+/reports/extent-report.html
+
+---
+
+##  How to Run
 
 ### Prerequisites
+- Java (JDK 8 or above)
+- Maven installed
 
-* Java (JDK 8+)
-* Maven
-* Chrome/Firefox
+### Steps
+git clone https://github.com/Deepika307/InternetBot.git
 
-### Run Tests
-
-```
-mvn test
-```
-
-or via TestNG XML:
-
-```
-testng.xml
-```
+cd InternetBot
+mvn clean test
 
 ---
 
-## 🔧 Configuration
+##  Best Practices Followed
 
-Edit `config.properties`:
+- Page Object Model (POM)
+- No hardcoded values
+- Explicit waits (WebDriverWait)
+- Clean and reusable code
+- Separation of concerns
+- Data-driven testing
 
-```
-browser=chrome
-baseUrl=https://the-internet.herokuapp.com
-timeout=10
-```
 
----
-
-## 📊 Reports
-
-After execution:
-
-* 📄 HTML Report → `/reports/`
-* 📸 Screenshots → `/screenshots/`
 
 ---
 
-## 🚫 Rules Followed
+##  Author
 
-* ❌ No Thread.sleep()
-* ❌ No hardcoded values
-* ✅ Proper wait strategy
-* ✅ Clean POM structure
+Deepika Kantheti  
+
 
 ---
 
-This project was built as part of a **Selenium Automation Hackathon** focusing on real-world framework design and automation best practices. 
+##  Conclusion
+
+This project demonstrates a scalable Selenium automation framework with real-world testing scenarios, focusing on maintainability, reusability, and best practices.
